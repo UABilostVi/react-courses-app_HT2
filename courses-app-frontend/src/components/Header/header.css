@@ -1,0 +1,9 @@
+.header {
+  background-color: paleturquoise;
+}
+
+.header-warpper {
+  display: grid;
+  grid-template-columns: 12fr 1fr 1fr;
+  align-items: center;
+}
