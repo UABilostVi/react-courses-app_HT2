@@ -7,7 +7,7 @@ import { Button } from '../../common/Button';
 
 import './login.css';
 
-const Login = () => {
+const Login = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
 	const navigate = useNavigate();
@@ -19,12 +19,11 @@ const Login = () => {
 				password: password,
 			})
 			.then((res) => {
-				localStorage.setItem('userToken', res.data.result);
+				props.login(res);
 			})
 			.catch((error) => {
-				alert(error);
+				alert(error.message);
 			});
-		navigate('/courses');
 	};
 	function onChangeEmail(e) {
 		setEmail(e.target.value);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../../common/Button';
 import { pipeDuration } from '../../../../helpers/pipeDuration';
@@ -9,6 +10,7 @@ import './courseCard.css';
 
 const CourseCard = (props) => {
 	let creationDate = transformDate(props.course.creationDate);
+	const navigate = useNavigate();
 
 	function getCourseAuthors() {
 		return props.course.authors
@@ -22,6 +24,10 @@ const CourseCard = (props) => {
 					return <span key={author.id}>{author.name}</span>;
 				} else return <span key={author.id}>{author.name}, </span>;
 			});
+	}
+
+	function onShowCourse() {
+		navigate(`${props.course.id}`);
 	}
 
 	return (
@@ -45,7 +51,11 @@ const CourseCard = (props) => {
 					<strong>Created: </strong>
 					{creationDate}
 				</div>
-				<Button centered={true} buttonText={BUTTON_SHOW_COURSE_TEXT} />
+				<Button
+					centered={true}
+					buttonText={BUTTON_SHOW_COURSE_TEXT}
+					onClick={onShowCourse}
+				/>
 			</div>
 		</div>
 	);
