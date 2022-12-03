@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 import { CreateCourseMain } from './components/CreateCourseMain';
 import { CreateCourseDetails } from './components/CreateCourseDetails';
@@ -20,6 +21,7 @@ const CreateCourse = (props) => {
 	let [newCourseAuthorsList, setCourseAuthorsList] = useState([]);
 	let [newAuthorsList, setAuthorsList] = useState(authors);
 	let [name, setName] = useState('');
+	const navigate = useNavigate();
 
 	function onChangeHandler(e) {
 		setName(e.target.value);
@@ -46,8 +48,8 @@ const CreateCourse = (props) => {
 			alert(FILL_ALERT);
 			return;
 		}
-		props.handleAddCourse();
 		createCourse(e);
+		navigate('/courses');
 	}
 
 	function createCourse(e) {
