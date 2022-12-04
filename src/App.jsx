@@ -15,7 +15,7 @@ function App() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		let token = localStorage.getItem('userItem');
+		let token = localStorage.getItem('userToken');
 		if (!!token) {
 			setIsLogedIn(true);
 		}
@@ -27,9 +27,15 @@ function App() {
 		navigate('/courses');
 	}
 
+	function logOutHandler() {
+		localStorage.removeItem('userToken');
+		setIsLogedIn(false);
+		navigate('/login');
+	}
+
 	return (
 		<>
-			<Header isLogedIn={isLogedIn} />
+			<Header isLogedIn={isLogedIn} logOut={logOutHandler} />
 			<main className='main'>
 				<Routes>
 					<Route path='*' element={<h1>Page not found</h1>} />
