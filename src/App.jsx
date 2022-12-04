@@ -42,7 +42,16 @@ function App() {
 							isLogedIn ? <Navigate to='/courses' /> : <Navigate to='/login' />
 						}
 					/>
-					<Route path='login' element={<Login login={logInHandler} />} />
+					<Route
+						path='login'
+						element={
+							isLogedIn ? (
+								<Navigate to='/courses' />
+							) : (
+								<Login login={logInHandler} />
+							)
+						}
+					/>
 					<Route path='registration' element={<Registration />} />
 					<Route path='courses'>
 						<Route index element={<Courses />} />
