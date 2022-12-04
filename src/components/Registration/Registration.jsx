@@ -24,7 +24,7 @@ const Registration = () => {
 				navigate('/login');
 			})
 			.catch(() => {
-				alert('Something went wrong');
+				alert('Wrong data');
 			});
 	};
 	function onChangeName(e) {

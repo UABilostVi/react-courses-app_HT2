@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { Input } from '../../common/Input';
@@ -10,7 +10,6 @@ import './login.css';
 const Login = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	const navigate = useNavigate();
 	const submitHandler = async (e) => {
 		e.preventDefault();
 		axios
@@ -19,10 +18,12 @@ const Login = (props) => {
 				password: password,
 			})
 			.then((res) => {
+				console.log(res);
 				props.login(res);
 			})
 			.catch((error) => {
-				alert(error.message);
+				console.log(error);
+				alert('Invalid user password or email');
 			});
 	};
 	function onChangeEmail(e) {

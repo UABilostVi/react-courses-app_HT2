@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
 import { Courses } from './components/Courses';
@@ -11,15 +11,8 @@ import { CourseInfo } from './components/CourseInfo';
 import './App.css';
 
 function App() {
-	let [isLogedIn, setIsLogedIn] = useState(false);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		let token = localStorage.getItem('userToken');
-		if (!!token) {
-			setIsLogedIn(true);
-		}
-	}, []);
+	let [isLogedIn, setIsLogedIn] = useState(!!localStorage.getItem('userToken'));
 
 	function logInHandler(res) {
 		localStorage.setItem('userToken', res.data.result);
@@ -35,11 +28,20 @@ function App() {
 
 	return (
 		<>
-			<Header isLogedIn={isLogedIn} logOut={logOutHandler} />
+			<Header
+				isLogedIn={isLogedIn}
+				logOut={logOutHandler}
+				logedIn={isLogedIn}
+			/>
 			<main className='main'>
 				<Routes>
 					<Route path='*' element={<h1>Page not found</h1>} />
-					<Route path='/' element={<Navigate to='/login' />} />
+					<Route
+						path='/'
+						element={
+							isLogedIn ? <Navigate to='/courses' /> : <Navigate to='/login' />
+						}
+					/>
 					<Route path='login' element={<Login login={logInHandler} />} />
 					<Route path='registration' element={<Registration />} />
 					<Route path='courses'>
